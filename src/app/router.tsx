@@ -1,5 +1,13 @@
-import { createBrowserRouter} from 'react-router-dom'
-import { AppShell } from './AppShell'
+import { createBrowserRouter, redirect} from 'react-router-dom'
+import { AppShell } from './AppShell';
+import { loadTokens } from '../features/auth/storage';
+
+function requireAuth() {
+  const tokens = loadTokens()
+  if (!tokens) throw redirect('/login')
+  if (tokens.refreshExpiresAt <= Date.now()) throw redirect('/login')
+  return null
+}
 
 
 export const router = createBrowserRouter([
@@ -13,6 +21,7 @@ export const router = createBrowserRouter([
   {
     id: 'root',
     Component: AppShell,
+    loader: requireAuth,
     children: [
       {
         index: true,
