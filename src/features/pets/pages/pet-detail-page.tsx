@@ -1,13 +1,17 @@
 import * as React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Dog, Edit, Trash2, User } from 'lucide-react';
-import { Button, Card, CardHeader } from '@/shared/components';
+import { Button, Card, CardHeader, CardContent } from '@/shared/components';
 import { usePet, useDeletePet, useUploadPetFoto } from '../api/pets-hooks';
+import { useTutor } from '@/features/tutores/api/tutores-hooks';
 
 export function PetDetailPage() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
   const { data: pet, isLoading, isError, error } = usePet(id);
+
+  const tutorId = pet?.tutores?.[0]?.id ?? ''
+  const tutorQuery = useTutor(tutorId)
 
   const del = useDeletePet();
   const upload = useUploadPetFoto(id);
@@ -95,6 +99,24 @@ export function PetDetailPage() {
                 <h2 className="text-base font-semibold text-zinc-900">Tutor</h2>
               </div>
             </CardHeader>
+            <CardContent>
+              {tutorId ? (
+                tutorQuery.isLoading ? (
+                  <div className="text-sm text-zinc-600">Carregando tutor…</div>
+                ) : tutorQuery.data ? (
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <InfoRow label="Nome" value={tutorQuery.data.nome} />
+                    <InfoRow label="Telefone" value={tutorQuery.data.telefone ?? '—'} />
+                    <InfoRow label="Endereço" value={tutorQuery.data.endereco ?? '—'} />
+                    <InfoRow label="E-mail" value={tutorQuery.data.email ?? '—'} />
+                  </div>
+                ) : (
+                  <div className="text-sm text-zinc-600">Tutor não encontrado.</div>
+                )
+              ) : (
+                <div className="text-sm text-zinc-600">Nenhum tutor vinculado.</div>
+              )}
+            </CardContent>
           </Card>
         </>
       ) : null}
