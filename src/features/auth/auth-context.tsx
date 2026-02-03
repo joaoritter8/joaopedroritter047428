@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   })
 
   const user = React.useMemo<AuthUser | null>(() => {
-    // API não retorna claims do usuário; aqui mantemos algo simples baseado no username salvo.
+   
     const username = tokens ? (localStorage.getItem('pet_manager_user') ?? '') : ''
     return username ? { username } : null
   }, [tokens])
@@ -46,17 +46,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const ensureFreshToken = React.useCallback(async () => {
     if (!tokens) return null
 
-    // se o refresh expirou, força logout
+    
     if (tokens.refreshExpiresAt <= now()) {
       logout()
       return null
     }
 
-    // se o access token ainda está ok (com margem), retorna
+    
     const SKEW_MS = 20_000
     if (tokens.accessExpiresAt - SKEW_MS > now()) return tokens.accessToken
 
-    // renovar
+  
     const res = await refreshApi(tokens.refreshToken)
     const next: AuthTokens = {
       accessToken: res.access_token,

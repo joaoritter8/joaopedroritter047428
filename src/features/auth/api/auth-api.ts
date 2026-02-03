@@ -13,7 +13,9 @@ export type AuthResponseDto = {
 }
 
 export async function login(payload: AuthRequestDto) {
-  const { data } = await api.post<AuthResponseDto>('/autenticacao/login', payload)
+  const { data } = await api.post<AuthResponseDto>('/autenticacao/login', payload, {
+    skipAuth: true,
+  })
   return data
 }
 
@@ -21,7 +23,7 @@ export async function refresh(refreshToken: string) {
   const { data } = await api.put<AuthResponseDto>(
     '/autenticacao/refresh',
     { refresh_token: refreshToken },
-    { headers: { Authorization: `Bearer ${refreshToken}` } },
+    { headers: { Authorization: `Bearer ${refreshToken}` }, skipAuth: true },
   )
   return data
 }
