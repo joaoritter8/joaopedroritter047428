@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
-import { Dog } from 'lucide-react'
-import type { PetDto } from '../pets.types'
-import { Badge, Card, CardContent } from '@/shared/components'
+import { Link } from 'react-router-dom';
+import { Dog } from 'lucide-react';
+import type { PetDto } from '../pets.types';
+import { Badge, Card, CardContent } from '@/shared/components';
 
 export function PetCard({ pet }: { pet: PetDto }) {
-  const foto = pet.foto?.url
+  const foto = pet.foto?.url;
 
   return (
     <Link to={`/pets/${pet.id}`} className="block">
@@ -27,5 +27,5 @@ export function PetCard({ pet }: { pet: PetDto }) {
         </CardContent>
       </Card>
     </Link>
-  )
+  );
 }

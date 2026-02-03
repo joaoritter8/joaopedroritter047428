@@ -1,12 +1,12 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { Dog, Home, Users, LogOut, PawPrint } from 'lucide-react'
-import { cn } from '@/shared/utils/cn'
-import { Button } from '@/shared/components'
-import { useAuth } from '@/features/auth/auth-context'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Dog, Home, Users, LogOut, PawPrint } from 'lucide-react';
+import { cn } from '@/shared/utils/cn';
+import { Button } from '@/shared/components';
+import { useAuth } from '@/features/auth/auth-context';
 
 export function AppShell() {
-  const { logout, user } = useAuth()
-  const navigate = useNavigate()
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-dvh bg-zinc-50">
@@ -18,17 +18,21 @@ export function AppShell() {
             </div>
             <div>
               <div className="text-sm font-semibold text-zinc-900">Pets MT</div>
-              <div className="text-xs text-zinc-500">Registro público de pets e tutores do estado de Mato Grosso</div>
+              <div className="text-xs text-zinc-500">
+                Registro público de pets e tutores do estado de Mato Grosso
+              </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            {user?.username ? <div className="hidden text-sm text-zinc-600 sm:block">Olá, {user.username}</div> : null}
+            {user?.username ? (
+              <div className="hidden text-sm text-zinc-600 sm:block">Olá, {user.username}</div>
+            ) : null}
             <Button
               variant="ghost"
               onClick={() => {
-                logout()
-                navigate('/login', { replace: true })
+                logout();
+                navigate('/login', { replace: true });
               }}
             >
               <LogOut size={16} />
@@ -60,7 +64,7 @@ export function AppShell() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function NavItem({
@@ -69,10 +73,10 @@ function NavItem({
   label,
   end,
 }: {
-  to: string
-  icon: React.ReactNode
-  label: string
-  end?: boolean
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+  end?: boolean;
 }) {
   return (
     <NavLink
@@ -88,5 +92,5 @@ function NavItem({
       {icon}
       {label}
     </NavLink>
-  )
+  );
 }

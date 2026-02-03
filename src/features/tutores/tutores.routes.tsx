@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { TutoresListPage } from './pages/tutores-list-page'
-import { TutorDetailPage } from './pages/tutor-detail-page'
-import { TutorFormPage } from './pages/tutor-form-page'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { TutoresListPage } from './pages/tutores-list-page';
+import { TutorDetailPage } from './pages/tutor-detail-page';
+import { TutorFormPage } from './pages/tutor-form-page';
 
 export function TutoresModuleRoutes() {
   return (
@@ -12,5 +12,5 @@ export function TutoresModuleRoutes() {
       <Route path=":id/editar" element={<TutorFormPage />} />
       <Route path="*" element={<Navigate to="/tutores" replace />} />
     </Routes>
-  )
+  );
 }

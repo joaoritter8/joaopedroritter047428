@@ -1,22 +1,22 @@
-import { api } from '@/shared/api/api-client'
+import { api } from '@/shared/api/api-client';
 
 export type AuthRequestDto = {
-  username: string
-  password: string
-}
+  username: string;
+  password: string;
+};
 
 export type AuthResponseDto = {
-  access_token: string
-  refresh_token: string
-  expires_in: number
-  refresh_expires_in: number
-}
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
+  refresh_expires_in: number;
+};
 
 export async function login(payload: AuthRequestDto) {
   const { data } = await api.post<AuthResponseDto>('/autenticacao/login', payload, {
     skipAuth: true,
-  })
-  return data
+  });
+  return data;
 }
 
 export async function refresh(refreshToken: string) {
@@ -24,6 +24,6 @@ export async function refresh(refreshToken: string) {
     '/autenticacao/refresh',
     { refresh_token: refreshToken },
     { headers: { Authorization: `Bearer ${refreshToken}` }, skipAuth: true },
-  )
-  return data
+  );
+  return data;
 }

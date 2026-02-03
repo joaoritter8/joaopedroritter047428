@@ -4,14 +4,19 @@ import type { TutorDto } from '../tutores.types';
 import { Badge, Card, CardContent } from '@/shared/components';
 
 export function TutorCard({ tutor }: { tutor: TutorDto }) {
-  const foto = tutor.foto?.url
+  const foto = tutor.foto?.url;
 
   return (
     <Link to={`/tutores/${tutor.id}`} className="block">
       <Card className="h-full overflow-hidden transition hover:shadow">
         <div className="aspect-[4/3] w-full bg-zinc-100">
           {foto ? (
-            <img src={foto} alt={tutor.nome} className="h-full w-full object-cover" loading="lazy" />
+            <img
+              src={foto}
+              alt={tutor.nome}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
           ) : (
             <div className="flex h-full items-center justify-center text-zinc-400">
               <User size={40} />
@@ -27,5 +32,5 @@ export function TutorCard({ tutor }: { tutor: TutorDto }) {
         </CardContent>
       </Card>
     </Link>
-  )
+  );
 }

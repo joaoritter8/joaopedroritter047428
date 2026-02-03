@@ -9,23 +9,26 @@ import { useAuth } from '@/features/auth/auth-context';
 const schema = z.object({
   username: z.string().min(1, 'Informe o usuário'),
   password: z.string().min(1, 'Informe a senha'),
-})
+});
 
-type FormValues = z.infer<typeof schema>
+type FormValues = z.infer<typeof schema>;
 
 export function LoginPage() {
-  const { login } = useAuth()
-  const navigate = useNavigate()
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { username: 'admin', password: 'admin' } })
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { username: 'admin', password: 'admin' },
+  });
 
   async function onSubmit(values: FormValues) {
-    await login(values.username, values.password)
-    navigate('/', { replace: true })
+    await login(values.username, values.password);
+    navigate('/', { replace: true });
   }
 
   return (
@@ -36,7 +39,9 @@ export function LoginPage() {
             <PawPrint size={22} />
           </div>
           <h1 className="text-2xl font-semibold text-zinc-900">Pets MT</h1>
-          <p className="mt-1 text-sm text-zinc-600">Acesse para gerenciar pets e tutores do estado de Mato Grosso</p>
+          <p className="mt-1 text-sm text-zinc-600">
+            Acesse para gerenciar pets e tutores do estado de Mato Grosso
+          </p>
         </div>
 
         <Card className="w-full max-w-md">
@@ -45,13 +50,17 @@ export function LoginPage() {
               <div>
                 <label className="mb-1 block text-sm font-medium text-zinc-800">Usuário</label>
                 <Input placeholder="ex: admin" {...register('username')} />
-                {errors.username ? <p className="mt-1 text-xs text-red-600">{errors.username.message}</p> : null}
+                {errors.username ? (
+                  <p className="mt-1 text-xs text-red-600">{errors.username.message}</p>
+                ) : null}
               </div>
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-zinc-800">Senha</label>
                 <Input type="password" placeholder="••••••" {...register('password')} />
-                {errors.password ? <p className="mt-1 text-xs text-red-600">{errors.password.message}</p> : null}
+                {errors.password ? (
+                  <p className="mt-1 text-xs text-red-600">{errors.password.message}</p>
+                ) : null}
               </div>
 
               <Button type="submit" disabled={isSubmitting}>
@@ -67,5 +76,5 @@ export function LoginPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
